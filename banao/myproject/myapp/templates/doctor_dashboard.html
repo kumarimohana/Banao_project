@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .dashboard-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .dashboard-container h2 {
+            margin-bottom: 20px;
+        }
+        .dashboard-container p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .profile-picture {
+            max-width: 200px;
+            border-radius: 50%;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-picture img {
+            width: 100%;
+            border-radius: 50%;
+        }
+        .no-picture {
+            color: #888;
+        }
+        .logout-link {
+            margin-top: 20px;
+        }
+        .logout-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .logout-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Welcome, Dr. {{ user.first_name }}</h2>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Address: {{ user.address_line1 }}, {{ user.city }}, {{ user.state }}, {{ user.pincode }}</p>
+        {% if user.profile_picture %}
+            <div class="profile-picture">
+                <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+            </div>
+        {% else %}
+            <p class="no-picture">No profile picture available.</p>
+        {% endif %}
+        <div class="logout-link">
+          <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit">Logout</button>
+          </form>
+      </div>
+      
+    </div>
+</body>
+</html>

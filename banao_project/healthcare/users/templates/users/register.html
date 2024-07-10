@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    {%load static%}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if form.cleaned_data.is_patient %}
+            {{ patient_form.as_p }}
+        {% elif form.cleaned_data.is_doctor %}
+            {{ doctor_form.as_p }}
+        {% endif %}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
